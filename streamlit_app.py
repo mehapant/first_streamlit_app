@@ -1,5 +1,10 @@
 import streamlit
+import pandas
+import requests
+import snowflake.connector
+from urllib.error import URLError
 
+#import streamlit
 streamlit.title('My parents New Healthy Diner')
 streamlit.header('Breakfast Favorites')
 streamlit.text('🍲Omega 3 and blueberry oatmeal')
@@ -9,7 +14,7 @@ streamlit.text('🥑Avocado Toast')
 
 streamlit.header('🍌🍍Build your own fruit smoothie🍓🍎')
 
-import pandas
+#import pandas
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
 
@@ -25,7 +30,7 @@ streamlit.header('FruityVice Fruit Advice!')
 fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
 streamlit.write('The user entered ', fruit_choice)
 
-import requests
+#import requests
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 #streamlit.text(fruityvice_response.json()) #Just writes the data to screen
 
@@ -35,8 +40,10 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 #output it on screen as table
 streamlit.dataframe(fruityvice_normalized)
 
-import snowflake.connector
+#Dont run anything past here while we troubleshoot
+streamlit.stop()
 
+#import snowflake.connector
 #Lets display the secret information on screen
 #my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 #my_cur = my_cnx.cursor()
