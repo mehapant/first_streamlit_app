@@ -69,7 +69,7 @@ except URLError as e:
   streamlit.error()
 
 #Dont run anything past here while we troubleshoot
-streamlit.stop()
+#streamlit.stop()
 
 #import snowflake.connector
 #Lets display the secret information on screen
