@@ -39,17 +39,32 @@ streamlit.dataframe(fruits_to_show)
 
 #Rearranging new section to display fruityvice api response. Introducing this structure allows us 
 #to separate the code that is loaded once from the code that should be repeated each time a new value is entered.
+#streamlit.header('FruityVice Fruit Advice!')
+#try:
+  #fruit_choice = streamlit.text_input('What fruit would you like information about?')
+  #if not fruit_choice:
+    #streamlit.error("please select a fruit to get information.")
+  #else:
+    #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    #fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    #streamlit.dataframe(fruityvice_normalized)
+#except URLError as e:
+  #streamlit.error()
+  
+#Replacing the above code with function to make it more readable and reusable
+def get_fruityvice_data(this_fruit_choice)
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    return fruityvice_normalized
+#Section to display fruityvice api response
 streamlit.header('FruityVice Fruit Advice!')
 try:
   fruit_choice = streamlit.text_input('What fruit would you like information about?')
   if not fruit_choice:
     streamlit.error("please select a fruit to get information.")
   else:
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-    streamlit.dataframe(fruityvice_normalized)
-except URLError as e:
-  streamlit.error()
+    back_from_function = get_fruityvice_data(fruit_choice)
+    streamlit.dataframe(back_from_function)
 
 #Dont run anything past here while we troubleshoot
 streamlit.stop()
